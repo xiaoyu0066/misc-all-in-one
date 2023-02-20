@@ -1,0 +1,76 @@
+#!/bin/bash
+echo "I want yibasuo!"
+echo "input filename:"
+read filename
+echo "Your file is $filename"
+echo "---------------------------------------------------------------------------------"
+echo "file:"
+eval "file $filename"
+echo "---------------------------------------------------------------------------------"
+echo "exiftool:"
+echo "-----check all------"
+eval "exiftool $filename"
+echo "-----check important words------"
+eval "exiftool $filename | grep flag"
+eval "exiftool $filename | grep key"
+eval "exiftool $filename | grep pass"
+echo "---------------------------------------------------------------------------------"
+echo "strings:"
+echo "-----check all------"
+eval "strings $filename"
+echo "-----check important words------"
+eval "strings $filename |grep flag"
+eval "strings $filename |grep txt"
+eval "strings $filename |grep key"
+eval "strings $filename |grep pass"
+eval "strings $filename |grep PK"
+eval "strings $filename |grep zTXt"
+eval "strings $filename |grep tEXt"
+eval "strings $filename |grep PLTE"
+echo "---------------------------------------------------------------------------------"
+echo "binwalk:"
+eval "binwalk $filename"
+echo "-----try to extract------"
+eval "binwalk -e $filename"
+echo "---------------------------------------------------------------------------------"
+echo "foremost:"
+rm -rf output
+eval "foremost $filename"
+echo "---------------------------------------------------------------------------------"
+echo "zsteg"
+echo "-----check all------"
+eval "zsteg -a $filename"
+echo "-----extract by row------"
+eval "zsteg $filename -b 1 -o xy -v"
+echo "-----extract by column------"
+eval "zsteg $filename -b 1 -o yx -v"
+rm -rf zsteg.txt
+echo "input tongdao:"
+read tongdao
+eval "zsteg -E "$tongdao" $filename -> zsteg.txt"
+echo "---------------------------------------------------------------------------------"
+echo "pngcheck"
+eval "pngcheck -7cfpqstvx $filename"
+echo "---------------------------------------------------------------------------------"
+echo "outguess"
+rm -rf outguess1.txt
+eval "outguess -r $filename -t outguess1.txt"
+echo "if outguess has a password"
+rm -rf outguess2.txt
+echo "input password:"
+read password
+eval "outguess -k "$password" -r $filename -t outguess2.txt"
+echo "-------------"
+cd /root/Documents/misc/F5-steganography-master/
+eval "pwd"
+rm -rf f5-output1.txt
+eval "java Extract /root/Documents/misc/$filename -e f5-output1.txt"
+echo "if f5 has a password"
+rm -rf f5-output2.txt
+echo "input f5password:"
+read f5password
+eval "java Extract /root/Documents/misc/$filename -p $f5password -e f5-output1.txt"
+echo "------------"
+echo "done"
+
+
