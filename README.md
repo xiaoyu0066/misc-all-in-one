@@ -1,5 +1,11 @@
 # misc-all-in-one
 本脚本为杂项文件隐写一把梭脚本，建议在kali等linux系统使用，可以大大提高比赛杂项做题速度。
+```
+chmod +x ./misc-all-in-one.sh
+./misc-all-in-one.sh
+```
+输入文件名后会自动执行分析。
+
 使用此脚本前应该安装以下工具：
 ## exiftool 查看exif信息
 `apt-get install exiftool`
@@ -28,6 +34,6 @@ cd outguess
 ## F5-steganography-master
 `git clone https://github.com/matthewgao/F5-steganography`
 
-##todo:
-增加压缩包处理
+## todo:
+增加压缩包处理  
 根据不同文件类型进行分析
